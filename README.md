@@ -1,46 +1,35 @@
-# todo-react
+# todo-react-vitest
 
-Sample todo app built with the React/ReactDOM framework. For the accompanying documentation, see
-[Understanding client-side JavaScript frameworks
-: React tutorials](https://wiki.developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks#React_tutorials).
+MDN's TodoMatic app with a complete Vitest + React Testing Library
+suite over every user flow: first render, add, toggle, delete, rename,
+and filter.
 
-For the live version, see https://mdn.github.io/todo-react/.
+Companion code for the article "Testing React with Vitest" at
+[adnanreza.com/writing](https://www.adnanreza.com/writing), and teaching
+material for my React courses.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What this is
 
-## Getting started
+The app itself is [mdn/todo-react](https://github.com/mdn/todo-react)
+exactly as MDN's React tutorial ships it (React 18, Vite 5), unchanged
+on purpose so it matches what tutorial readers already know. Everything
+added here is testing: current Vitest, jsdom, and Testing Library, one
+setup file, one test file.
 
-To get this app running locally, you'll need to have [Node.js](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/getting-started/install) installed on your machine.
-In the project directory, you can run:
+Licensed MPL-2.0, the same as upstream; see [LICENSE](LICENSE).
 
-```bash
-yarn && yarn start
+## Run it
+
+```
+npm install
+npm run dev       # the app, at localhost:3000
+npm test          # the tests, in watch mode
+npm run test:run  # the tests, once
 ```
 
-More information about the available commands can be found in the [Contributing](CONTRIBUTING.md) guide.
+## Where the tests live
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-The following sections are recommended:
-
-- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-- [Analyzing the Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-- [Deployment](https://facebook.github.io/create-react-app/docs/deployment)
-- [npm run build fails to minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Contributing
-
-Our project welcomes contributions from any member of our community.
-To get started contributing, please see our [Contributor Guide](CONTRIBUTING.md).
-
-By participating in and contributing to our projects and discussions, you acknowledge that you have read and agree to our [Code of Conduct](CODE_OF_CONDUCT.md).
-
-## License
-
-This project is licensed under the [LICENSE](LICENSE).
+- `vitest.config.js` — the whole test configuration
+- `src/test/setup.js` — registers Testing Library's extra matchers
+- `src/App.test.jsx` — all six user flows, written classroom-style:
+  one behaviour per test, queries by accessible role and name
