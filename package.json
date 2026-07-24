@@ -1,14 +1,15 @@
 {
-  "name": "moz-todo-react",
-  "version": "0.3.0",
+  "name": "todo-react-vitest",
+  "version": "0.1.0",
   "private": true,
-  "homepage": "https://mdn.github.io/todo-react/",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000 --open",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "nanoid": "5.1.6",
@@ -16,6 +17,9 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "18.2.79",
     "@types/react-dom": "18.2.25",
     "@vitejs/plugin-react": "4.3.4",
@@ -23,6 +27,8 @@
     "eslint-plugin-react": "7.37.2",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-react-refresh": "0.4.16",
-    "vite": "5.4.21"
+    "jsdom": "^29.1.1",
+    "vite": "5.4.21",
+    "vitest": "^4.1.10"
   }
 }
