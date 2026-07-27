@@ -8,6 +8,21 @@ Companion code for **[Testing React with Vitest](https://www.adnanreza.com/writi
 a follow-along lab that builds this repository from a clean clone in about half
 an hour. If a test will not go green on your machine, clone this and diff.
 
+## Branches
+
+| Branch | What it is |
+| --- | --- |
+| `main` | The app in JavaScript, with the six tests. |
+| [`typescript`](https://github.com/adnanreza/todo-react-vitest/tree/typescript) | The same app migrated to TypeScript, tests unchanged. |
+
+The migration is easiest to read as a diff:
+[main...typescript](https://github.com/adnanreza/todo-react-vitest/compare/main...typescript)
+shows every file it touched. The test file changes by two lines, a type
+import and one annotation, while all six assertions stay exactly as they
+were. That is the point: the migration changed how the code is
+described, not what it does. It is walked through step by step in
+[Migrating a React app from JavaScript to TypeScript](https://www.adnanreza.com/writing/migrating-react-to-typescript).
+
 ## Run it
 
 ```bash
