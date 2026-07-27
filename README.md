@@ -10,18 +10,31 @@ an hour. If a test will not go green on your machine, clone this and diff.
 
 ## Branches
 
-| Branch | What it is |
-| --- | --- |
-| `main` | The app in JavaScript, with the six tests. |
-| [`typescript`](https://github.com/adnanreza/todo-react-vitest/tree/typescript) | The same app migrated to TypeScript, tests unchanged. |
+Each branch is the finished state of one lab. None of them is work in
+progress, and none of them will be merged, because the teaching material
+is the difference between them.
 
-The migration is easiest to read as a diff:
-[main...typescript](https://github.com/adnanreza/todo-react-vitest/compare/main...typescript)
-shows every file it touched. The test file changes by two lines, a type
-import and one annotation, while all six assertions stay exactly as they
-were. That is the point: the migration changed how the code is
-described, not what it does. It is walked through step by step in
+| Branch | What it is | Where it fits |
+| --- | --- | --- |
+| `main` | The app in JavaScript with the six tests. | The finished state of the Vitest lab, and the starting point for the TypeScript one. Clone this either way. |
+| [`typescript`](https://github.com/adnanreza/todo-react-vitest/tree/typescript) | The same app migrated to TypeScript, every assertion unchanged. | The finished state of the TypeScript lab. |
+
+So `main` does double duty: it is the answer key if you are working
+through [Testing React with Vitest](https://www.adnanreza.com/writing/testing-react-with-vitest),
+and it is where you begin if you are working through
 [Migrating a React app from JavaScript to TypeScript](https://www.adnanreza.com/writing/migrating-react-to-typescript).
+
+That migration is easiest to read as a diff:
+[main...typescript](https://github.com/adnanreza/todo-react-vitest/compare/main...typescript)
+shows every file it touched, in one commit. The test file changes by two
+lines, a type import and one annotation, while all six assertions stay
+exactly as they were. That is the point: the migration changed how the
+code is described, not what it does.
+
+`typescript` will never be merged into `main`. Merging it would destroy
+the comparison, and the comparison is the lesson. GitHub sometimes
+offers a "Compare & pull request" button after a push to that branch;
+that is GitHub noticing activity, not a suggestion worth taking.
 
 ## Run it
 
