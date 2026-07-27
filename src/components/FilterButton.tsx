@@ -1,4 +1,12 @@
-function FilterButton(props) {
+import type { FilterName } from "../App";
+
+type FilterButtonProps = {
+  name: FilterName;
+  isPressed: boolean;
+  setFilter: (name: FilterName) => void;
+};
+
+function FilterButton(props: FilterButtonProps) {
   return (
     <button
       type="button"

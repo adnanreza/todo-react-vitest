@@ -1,30 +1,41 @@
 import { useEffect, useRef, useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 
-function usePrevious(value) {
-  const ref = useRef(null);
+type TodoProps = {
+  id: string;
+  name: string;
+  completed: boolean;
+  toggleTaskCompleted: (id: string) => void;
+  deleteTask: (id: string) => void;
+  editTask: (id: string, newName: string) => void;
+};
+
+// Works for a value of any type: whatever goes in comes back out.
+function usePrevious<T>(value: T) {
+  const ref = useRef<T | null>(null);
   useEffect(() => {
     ref.current = value;
   });
   return ref.current;
 }
 
-function Todo(props) {
+function Todo(props: TodoProps) {
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
 
-  const editFieldRef = useRef(null);
-  const editButtonRef = useRef(null);
+  const editFieldRef = useRef<HTMLInputElement>(null);
+  const editButtonRef = useRef<HTMLButtonElement>(null);
 
   const wasEditing = usePrevious(isEditing);
 
-  function handleChange(event) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setNewName(event.target.value);
   }
 
   // NOTE: As written, this function has a bug: it doesn't prevent the user
   // from submitting an empty form. This is left as an exercise for developers
   // working through MDN's React tutorial.
-  function handleSubmit(event) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     props.editTask(props.id, newName);
     setNewName("");
@@ -97,9 +108,9 @@ function Todo(props) {
 
   useEffect(() => {
     if (!wasEditing && isEditing) {
-      editFieldRef.current.focus();
+      editFieldRef.current?.focus();
     } else if (wasEditing && !isEditing) {
-      editButtonRef.current.focus();
+      editButtonRef.current?.focus();
     }
   }, [wasEditing, isEditing]);
 

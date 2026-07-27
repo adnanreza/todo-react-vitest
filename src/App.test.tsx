@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
+import type { Task } from "./types";
 
-// The same starter tasks the app ships with in main.jsx.
-const TASKS = [
+// The same starter tasks the app ships with in main.tsx.
+const TASKS: Task[] = [
   { id: "todo-0", name: "Eat", completed: true },
   { id: "todo-1", name: "Sleep", completed: false },
   { id: "todo-2", name: "Repeat", completed: false },

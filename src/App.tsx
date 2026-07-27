@@ -3,9 +3,10 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
 import { nanoid } from "nanoid";
+import type { Task } from "./types";
 
-function usePrevious(value) {
-  const ref = useRef(null);
+function usePrevious<T>(value: T) {
+  const ref = useRef<T | null>(null);
   useEffect(() => {
     ref.current = value;
   });
@@ -14,17 +15,25 @@ function usePrevious(value) {
 
 const FILTER_MAP = {
   All: () => true,
-  Active: (task) => !task.completed,
-  Completed: (task) => task.completed,
+  Active: (task: Task) => !task.completed,
+  Completed: (task: Task) => task.completed,
 };
 
-const FILTER_NAMES = Object.keys(FILTER_MAP);
+// "All" | "Active" | "Completed", derived from the object above rather
+// than typed out a second time.
+export type FilterName = keyof typeof FILTER_MAP;
 
-function App(props) {
-  const [tasks, setTasks] = useState(props.tasks);
-  const [filter, setFilter] = useState("All");
+const FILTER_NAMES = Object.keys(FILTER_MAP) as FilterName[];
 
-  function toggleTaskCompleted(id) {
+type AppProps = {
+  tasks: Task[];
+};
+
+function App(props: AppProps) {
+  const [tasks, setTasks] = useState<Task[]>(props.tasks);
+  const [filter, setFilter] = useState<FilterName>("All");
+
+  function toggleTaskCompleted(id: string) {
     const updatedTasks = tasks.map((task) => {
       // if this task has the same ID as the edited task
       if (id === task.id) {
@@ -37,12 +46,12 @@ function App(props) {
     setTasks(updatedTasks);
   }
 
-  function deleteTask(id) {
+  function deleteTask(id: string) {
     const remainingTasks = tasks.filter((task) => id !== task.id);
     setTasks(remainingTasks);
   }
 
-  function editTask(id, newName) {
+  function editTask(id: string, newName: string) {
     const editedTaskList = tasks.map((task) => {
       // if this task has the same ID as the edited task
       if (id === task.id) {
@@ -78,7 +87,7 @@ function App(props) {
     />
   ));
 
-  function addTask(name) {
+  function addTask(name: string) {
     const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
@@ -86,12 +95,12 @@ function App(props) {
   const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
   const headingText = `${taskList.length} ${tasksNoun} remaining`;
 
-  const listHeadingRef = useRef(null);
+  const listHeadingRef = useRef<HTMLHeadingElement>(null);
   const prevTaskLength = usePrevious(tasks.length);
 
   useEffect(() => {
-    if (tasks.length < prevTaskLength) {
-      listHeadingRef.current.focus();
+    if (prevTaskLength !== null && tasks.length < prevTaskLength) {
+      listHeadingRef.current?.focus();
     }
   }, [tasks.length, prevTaskLength]);
 
@@ -100,7 +109,7 @@ function App(props) {
       <h1>TodoMatic</h1>
       <Form addTask={addTask} />
       <div className="filters btn-group stack-exception">{filterList}</div>
-      <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
+      <h2 id="list-heading" tabIndex={-1} ref={listHeadingRef}>
         {headingText}
       </h2>
       <ul
